@@ -36,7 +36,7 @@ else:
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Ciao, sono un bot che aggiunge un referral code ai link Amazon!")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Ciao, sono un bot che aggiunge un codice affiliato ai link Amazon che gli mandi. A te non costa nulla e mi aiuti! Grazie da Nico!")
 
 # Create the new URL with the refer tag
 def newReferURL(pcode):
