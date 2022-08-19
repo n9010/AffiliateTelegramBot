@@ -50,19 +50,42 @@ def unshortURL(url):
 
 #Filter the msg text to extract the URL if found. Then send the corresponding reply
 # with the new affiliate URL
+#def filterText(update, context):
+#    pCode=""
+#    msg = update.message.text
+#    start = msg.find("amzn.to")
+#    if start!=-1:
+#        msg = unshortURL(msg[start:].split()[0])
+#    start = msg.find(searchURL)
+#    if start != -1:
+#        #Regular expression to extract the product code. Adjust if different URL schemes are found.
+#        m = re.search(r'(?:dp\/[\w]*)|(?:gp\/product\/[\w]*)',msg[start:].split(" ")[0])
+#        if m != None:
+#            pCode = m.group(0)
+#        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode))
 def filterText(update, context):
     pCode=""
     msg = update.message.text
     start = msg.find("amzn.eu")
     if start!=-1:
+        link = "<a href=\""+msg[start:].split(" ")[0]+"?tag="+affiliate_tag+"\">"+msg[start:].split(" ")[0]+"</a>"
+        sender = "<a href=\"tg://user?id="+str(update.message.from_user.id)+"\">"+update.message.from_user.first_name+"</a>"
+        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text="🔥 Aporte de  <b>"+sender+"</b> \n\n➡️ "+link,parse_mode='HTML')
+        context.bot.delete_message(chat_id=update.message.chat_id,message_id=update.message.message_id)
+    start = msg.find("amzn.to")
+    if start!=-1:
         msg = unshortURL(msg[start:].split()[0])
     start = msg.find(searchURL)
     if start != -1:
         #Regular expression to extract the product code. Adjust if different URL schemes are found.
-        m = re.search(r'(?:dp\/[\w]*)|(?:gp\/product\/[\w]*)',msg[start:].split(" ")[0])
+        m = re.search(r'(?:dp\/[\w]*)|(?:gp\/product\/[\w]*)|(?:gp\/aw\/d\/[\w]*)',msg[start:].split(" ")[0])
         if m != None:
             pCode = m.group(0)
-        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode))
+        link = "<a href=\""+newReferURL(pCode)+"\">"+baseURL+pCode+"</a>"
+        sender = "<a href=\"tg://user?id="+str(update.message.from_user.id)+"\">"+update.message.from_user.first_name+"</a>"
+        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text="🔥 Aporte de  <b>"+sender+"</b> \n\n➡️ "+link,parse_mode='HTML')
+        context.bot.delete_message(chat_id=update.message.chat_id,message_id=update.message.message_id)
+
 
 def main():
     """Start the bot."""
