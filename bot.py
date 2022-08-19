@@ -70,7 +70,7 @@ def filterText(update, context):
     if start!=-1:
         link = "<a href=\""+msg[start:].split(" ")[0]+"?tag="+affiliate_tag+"\">"+msg[start:].split(" ")[0]+"</a>"
         sender = "<a href=\"tg://user?id="+str(update.message.from_user.id)+"\">"+update.message.from_user.first_name+"</a>"
-        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text="🔥Grazie <b>"+sender+"</b> \n<b>Ecco il Link<\b>\n➡️ "+link,parse_mode='HTML')
+        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text="🔥 Grazie <b>"+sender+"</b> Ecco il link \n\n➡️ "+link,parse_mode='HTML')
         context.bot.delete_message(chat_id=update.message.chat_id,message_id=update.message.message_id)
     start = msg.find("amzn.to")
     if start!=-1:
