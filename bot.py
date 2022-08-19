@@ -53,7 +53,7 @@ def unshortURL(url):
 def filterText(update, context):
     pCode=""
     msg = update.message.text
-    start = msg.find("amzn.to")
+    start = msg.find("amzn.")
     if start!=-1:
         msg = unshortURL(msg[start:].split()[0])
     start = msg.find(searchURL)
